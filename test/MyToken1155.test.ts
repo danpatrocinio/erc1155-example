@@ -24,7 +24,7 @@ import hre from "hardhat";
     }
   
     describe("Deployment", function () {
-      it("Deve implantar com valor inicial", async function () {
+      it("Should deploy with initial supply", async function () {
         const { contract, owner } = await loadFixture(deployOneYearLockFixture);
   
         expect(await contract.balanceOf(owner, BTC)).to.equal(AMOUNT_INITIAL_SUPPLY_BTC);
@@ -32,7 +32,7 @@ import hre from "hardhat";
         expect(await contract.balanceOf(owner, SILVER)).to.equal(AMOUNT_INITIAL_SUPPLY_SILVER);
       });
 
-      it("Deve queimar todo o valor inicial", async function () {
+      it("Should burn all initial supply", async function () {
         const { contract, owner } = await loadFixture(deployOneYearLockFixture);
 
         await contract.burn(owner, BTC, AMOUNT_INITIAL_SUPPLY_BTC);
@@ -44,7 +44,7 @@ import hre from "hardhat";
         expect(await contract.balanceOf(owner, SILVER)).to.equal(0n);
       });
 
-      it("Deve cunhar em lote", async function () {
+      it("Should mint in batch", async function () {
         const { contract, owner } = await loadFixture(deployOneYearLockFixture);
         const tokensId = [BTC, GOLD, SILVER];
         const amountsToMint = [50n, 30n, 10n];
@@ -55,7 +55,7 @@ import hre from "hardhat";
         expect(await contract.balanceOf(owner, SILVER)).to.equal(AMOUNT_INITIAL_SUPPLY_SILVER + amountsToMint[2]);
       });
 
-      it("Deve queimar em lote", async function () {
+      it("Should burn in batch", async function () {
         const { contract, owner } = await loadFixture(deployOneYearLockFixture);
         const tokensId = [BTC, GOLD, SILVER];
         const amountsToBurn = [100n, 100n, 100n];
